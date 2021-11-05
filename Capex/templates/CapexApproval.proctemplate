@@ -1,0 +1,94 @@
+{
+	"id": "capexapproval",
+	"name": "CapexApproval",
+	"documentation": "CapexApproval",
+	"contentVersion": "2.0",
+	"stepDefinitions": [{
+		"id": "com.sap.bpm.process.start",
+		"name": "Start"
+	}, {
+		"reference": "/workflows/ApprovalStep.workflow",
+		"icon": "sap-icon://accept",
+		"borderColor": "#687a33",
+		"constraints": {
+			"occurrence": {
+				"min": 1
+			}
+		},
+		"inputParameters": [{
+			"id": "approvalstep",
+			"name": "approvalstep",
+			"documentation": "Step to approve",
+			"type": "string",
+			"predefinedValue": "LocalManager",
+			"targetVariable": "${context.approvalstep}"
+		}]
+	}, {
+		"id": "com.sap.bpm.process.end",
+		"name": "End"
+	}],
+	"configurations": {
+		"enablePrincipalPropagation": true
+	},
+	"contextMapping": {
+		"inputContextMapping": [{
+			"sourceExpression": "${context.RequestId}"
+		}, {
+			"sourceExpression": "${context.Title}"
+		}, {
+			"sourceExpression": "${context.Investment}"
+		}, {
+			"sourceExpression": "${context.Requester}"
+		}, {
+			"sourceExpression": "${context.History}"
+		}, {
+			"sourceExpression": "${context.internal}"
+		}]
+	},
+	"attributes": [{
+		"id": "RequestId",
+		"label": "RequestId",
+		"type": "string",
+		"value": "${context.RequestId}"
+	}, {
+		"id": "Title",
+		"label": "Title",
+		"type": "string",
+		"value": "${context.Title}"
+	}, {
+		"id": "Type",
+		"label": "Type",
+		"type": "string",
+		"value": "${context.Investment.Country}"
+	}, {
+		"id": "ROI",
+		"label": "ROI",
+		"type": "string",
+		"value": "${context.Investment.ROI}"
+	}, {
+		"id": "CAPEX",
+		"label": "CAPEX",
+		"type": "string",
+		"value": "${context.Investment.CAPEX}"
+	}, {
+		"id": "OPEX",
+		"label": "OPEX",
+		"type": "string",
+		"value": "${context.Investment.OPEX}"
+	}, {
+		"id": "TotalCost",
+		"label": "TotalCost",
+		"type": "string",
+		"value": "${context.Investment.TotalCost}"
+	}, {
+		"id": "Currency",
+		"label": "Currency",
+		"type": "string",
+		"value": "${context.Investment.Currency}"
+	}, {
+		"id": "approvalStatus",
+		"label": "approvalStatus",
+		"type": "string",
+		"value": "${context.internal.approvalStatus}"
+	}]
+}
